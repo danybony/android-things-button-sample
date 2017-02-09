@@ -42,7 +42,7 @@ public class BoardDefaults {
             case DEVICE_EDISON:
                 return "GP45";
             case DEVICE_RPI3:
-                return "BCM5";
+                return "BCM6";
             case DEVICE_NXP:
                 return "GPIO4_IO21";
             default:
@@ -58,7 +58,7 @@ public class BoardDefaults {
     public static String getGPIOForGreenLED() {
         switch (getBoardVariant()) {
             case DEVICE_RPI3:
-                return "BCM6";
+                return "BCM5";
             default:
                 // TODO update pins for this on missing boards
                 throw new IllegalStateException("Unknown Build.DEVICE " + Build.DEVICE);
