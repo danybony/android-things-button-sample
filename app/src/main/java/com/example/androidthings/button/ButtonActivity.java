@@ -18,13 +18,13 @@ package com.example.androidthings.button;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 
 import com.google.android.things.contrib.driver.button.Button;
 import com.google.android.things.contrib.driver.button.ButtonInputDriver;
 import com.google.android.things.pio.Gpio;
 import com.google.android.things.pio.PeripheralManagerService;
-import android.util.Log;
-import android.view.KeyEvent;
 
 import java.io.IOException;
 
@@ -40,8 +40,8 @@ import java.io.IOException;
 public class ButtonActivity extends Activity {
     private static final String TAG = ButtonActivity.class.getSimpleName();
 
-    private Gpio mLedGpio;
-    private ButtonInputDriver mButtonInputDriver;
+    private Gpio redLedGpio;
+    private ButtonInputDriver buttonInputDriver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +51,17 @@ public class ButtonActivity extends Activity {
         PeripheralManagerService pioService = new PeripheralManagerService();
         try {
             Log.i(TAG, "Configuring GPIO pins");
-            mLedGpio = pioService.openGpio(BoardDefaults.getGPIOForLED());
-            mLedGpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW);
+            redLedGpio = pioService.openGpio(BoardDefaults.getGPIOForRedLED());
+            redLedGpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW);
 
             Log.i(TAG, "Registering button driver");
             // Initialize and register the InputDriver that will emit SPACE key events
             // on GPIO state changes.
-            mButtonInputDriver = new ButtonInputDriver(
+            buttonInputDriver = new ButtonInputDriver(
                     BoardDefaults.getGPIOForButton(),
                     Button.LogicState.PRESSED_WHEN_LOW,
-                    KeyEvent.KEYCODE_SPACE);
-            mButtonInputDriver.register();
+                    KeyEvent.KEYCODE_NUMPAD_SUBTRACT);
+            buttonInputDriver.register();
         } catch (IOException e) {
             Log.e(TAG, "Error configuring GPIO pins", e);
         }
@@ -69,7 +69,7 @@ public class ButtonActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_SPACE) {
+        if (keyCode == KeyEvent.KEYCODE_NUMPAD_SUBTRACT) {
             // Turn on the LED
             setLedValue(true);
             return true;
@@ -80,7 +80,7 @@ public class ButtonActivity extends Activity {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_SPACE) {
+        if (keyCode == KeyEvent.KEYCODE_NUMPAD_SUBTRACT) {
             // Turn off the LED
             setLedValue(false);
             return true;
@@ -94,7 +94,7 @@ public class ButtonActivity extends Activity {
      */
     private void setLedValue(boolean value) {
         try {
-            mLedGpio.setValue(value);
+            redLedGpio.setValue(value);
         } catch (IOException e) {
             Log.e(TAG, "Error updating GPIO value", e);
         }
@@ -104,26 +104,26 @@ public class ButtonActivity extends Activity {
     protected void onDestroy(){
         super.onDestroy();
 
-        if (mButtonInputDriver != null) {
-            mButtonInputDriver.unregister();
+        if (buttonInputDriver != null) {
+            buttonInputDriver.unregister();
             try {
-                mButtonInputDriver.close();
+                buttonInputDriver.close();
             } catch (IOException e) {
                 Log.e(TAG, "Error closing Button driver", e);
             } finally{
-                mButtonInputDriver = null;
+                buttonInputDriver = null;
             }
         }
 
-        if (mLedGpio != null) {
+        if (redLedGpio != null) {
             try {
-                mLedGpio.close();
+                redLedGpio.close();
             } catch (IOException e) {
                 Log.e(TAG, "Error closing LED GPIO", e);
             } finally{
-                mLedGpio = null;
+                redLedGpio = null;
             }
-            mLedGpio = null;
+            redLedGpio = null;
         }
     }
 }
