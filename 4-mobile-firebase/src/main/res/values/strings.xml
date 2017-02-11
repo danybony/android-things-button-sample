@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">Button sample</string>
+  <string name="minus">-</string>
+  <string name="plus">+</string>
 </resources>

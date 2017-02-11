@@ -1,8 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/activity_main"
-  android:layout_width="match_parent" android:layout_height="match_parent" android:paddingBottom="@dimen/activity_vertical_margin"
-  android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingRight="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/activity_main"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingBottom="@dimen/activity_vertical_margin"
+  android:paddingLeft="@dimen/activity_horizontal_margin"
+  android:paddingRight="@dimen/activity_horizontal_margin"
+  android:paddingTop="@dimen/activity_vertical_margin"
   tools:context="com.example.androidthings.button.MainActivity">
 
-  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hello World!" />
+  <View
+    android:id="@+id/light_negative"
+    android:layout_width="@dimen/light_width"
+    android:layout_height="@dimen/light_height"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/negative_shape"
+    android:importantForAccessibility="no" />
+
+  <View
+    android:id="@+id/light_positive"
+    android:layout_width="@dimen/light_width"
+    android:layout_height="@dimen/light_height"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/positive_shape"
+    android:importantForAccessibility="no" />
+
+  <TextView
+    android:id="@+id/counter_value"
+    style="@style/Counter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    tools:text="8" />
+
+  <Button
+    android:id="@+id/button_decrease"
+    style="@style/Buttons"
+    android:layout_width="@dimen/button_width"
+    android:layout_height="@dimen/button_height"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentStart="true"
+    android:text="@string/minus" />
+
+  <Button
+    android:id="@+id/button_increase"
+    style="@style/Buttons"
+    android:layout_width="@dimen/button_width"
+    android:layout_height="@dimen/button_height"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:text="@string/plus" />
+
 </RelativeLayout>
