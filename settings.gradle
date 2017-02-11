@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':1-single-io', ':2-multiple-io', ':3-thing-firebase'
+include ':1-single-io', ':2-multiple-io', ':3-thing-firebase', ':4-mobile-firebase'
