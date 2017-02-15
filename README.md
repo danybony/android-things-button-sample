@@ -1,9 +1,8 @@
-Button and LED sample for Android Things
+Button and LED (and Firebase) codelab for Android Things
 ========================================
 
-This Android Things sample demonstrates how to use a button input
-UserDriver to listen to GPIO pin changes, generate and listen for key events
-and change the state of an LED accordingly.
+This is a codelab based on the [Android Things Button Sample](https://github.com/androidthings/sample-button).
+It demonstrates how to use a button input UserDriver to listen to GPIO pin changes, generate and listen for key events, change the state of an LED accordingly and synchronise with Firebase.
 
 
 Pre-requisites
@@ -24,9 +23,18 @@ Schematics
 If you have the Raspberry Pi [Rainbow Hat for Android Things](https://shop.pimoroni.com/products/rainbow-hat-for-android-things), just plug it onto your Raspberry Pi 3.
 Each step will have a different schematic, so have a look into each step's module directory for the relative schematic.
 
+Steps
+=================
+
+1. The first step is exactly as defined in the [Android Things Button Sample](https://github.com/androidthings/sample-button). It shows how to use a button input UserDriver to listen to GPIO pin changes, generate and listen for key events and change the state of an LED accordingly
+2. The second step duplicates what is done in the first one, for the hardware side, but it adds a software counter which is incremented or decremented when the user presses one of the physical buttons. The two LEDs will show when the counter values is positive (green on), negative (red on) or equal to zero (both off)
+3. In the third step we add Firebase integration to our Thing, synchronising the counter value with the Firebase Database
+4. The last step adds a mobile app, mirroring the function of the Thing board and synchronised with the same Firebase database. When the counter is modified in the mobile app, the value is automatically updated on the board and vice versa
 
 Build and install
 =================
+
+First of all add the Firebase project json configuration file to modules 3 and 4 directories, as described in https://firebase.google.com/docs/android/setup#manually_add_firebase
 
 On Android Studio, click on the "Run" button.
 
